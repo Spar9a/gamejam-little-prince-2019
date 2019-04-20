@@ -9,7 +9,7 @@ public class FollowingCamera : MonoBehaviour {
     public float nextCameraX;
     [Space]
     public GameObject CameraObject;
-
+    [SerializeField]
     float characterOffset = 1f;
     
     void Start () {

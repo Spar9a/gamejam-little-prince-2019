@@ -39,6 +39,15 @@ public class Inventory : MonoBehaviour
                 break;
         }
     }
+    private void OnTriggerExit(Collider col)
+    {
+        if (col.tag =="Wood")
+        {
+            UsePanel.SetActive(false);
+        }
+    }
+
+
     public void RemoveItem(Item id)
     {
         CurrentItem = Item.Nothing;
