@@ -2,24 +2,72 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent (typeof (GravityBody))]
 public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField] private Transform Earth;
-
-    [SerializeField] private float speed = 0.5f;
-    [SerializeField] private float timeMultiple = 1;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public float mouseSensitivityX = 1;
+    public float mouseSensitivityY = 1;
+    public float walkSpeed = 6;
+    public float jumpForce = 220;
+    public LayerMask groundedMask;
+	
+    // System vars
+    bool grounded;
+    Vector3 moveAmount;
+    Vector3 smoothMoveVelocity;
+    float verticalLookRotation;
+    Transform cameraTransform;
+    Rigidbody rigidbody;
+	
+	
+    void Awake() {
+        cameraTransform = Camera.main.transform;
+        rigidbody = GetComponent<Rigidbody> ();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Earth.Ro = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-        //h = Input.GetAxis("Vertical") * Time.deltaTime * speed;
+	
+    void Update() {
+		
+        // Look rotation:
+        if (Input.GetMouseButton(1))
+        {
+            transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensitivityX);
+            verticalLookRotation += Input.GetAxis("Mouse Y") * mouseSensitivityY;
+            verticalLookRotation = Mathf.Clamp(verticalLookRotation,-60,60);
+            cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
+        }
+		
+        // Calculate movement:
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputY = Input.GetAxisRaw("Vertical");
+		
+        Vector3 moveDir = new Vector3(inputX,0, inputY).normalized;
+        Vector3 targetMoveAmount = moveDir * walkSpeed;
+        moveAmount = Vector3.SmoothDamp(moveAmount,targetMoveAmount,ref smoothMoveVelocity,.15f);
+		
+        // Jump
+        if (Input.GetButtonDown("Jump")) {
+            if (grounded) {
+                rigidbody.AddForce(transform.up * jumpForce);
+            }
+        }
+		
+        // Grounded check
+        Ray ray = new Ray(transform.position, -transform.up);
+        RaycastHit hit;
+		
+        if (Physics.Raycast(ray, out hit, 1 + .1f, groundedMask)) {
+            grounded = true;
+        }
+        else {
+            grounded = false;
+        }
+		
+    }
+	
+    void FixedUpdate() {
+        // Apply movement to rigidbody
+        Vector3 localMove = transform.TransformDirection(moveAmount) * Time.fixedDeltaTime;
+        rigidbody.MovePosition(rigidbody.position + localMove);
     }
 }
