@@ -59,10 +59,10 @@ public class SeasonsManager : MonoBehaviour
         SummerPassed = false;
         Transition = false;
 
-        CurrentTemp = SeasonCycle[0].TempMultiplier+Fire.Hotness/20;
+        CurrentTemp = SeasonCycle[0].TempMultiplier+Fire._hp.GetCurrentHP() / 20;
         CurrentWind = SeasonCycle[0].WindMulitiplier;
 
-        TempText.text = "Температура: " + Mathf.CeilToInt(CurrentTemp).ToString() + "°C";
+        TempText.text = "Температура воздуха: " + Mathf.CeilToInt(CurrentTemp).ToString() + "°C";
         WindText.text = "Скорость ветра: " + Mathf.CeilToInt(CurrentWind).ToString() + "м/c";
 
         for (int i = 0; i < CurrentColors.Length; i++)
@@ -101,9 +101,9 @@ public class SeasonsManager : MonoBehaviour
             
             for (float t = 0.01f; t < FadeTime; t += 0.1f)
                 {
-                CurrentTemp = Mathf.Lerp(SeasonCycle[CurrentSeason].TempMultiplier,SeasonCycle[NextSeason].TempMultiplier,t/FadeTime) + Fire.Hotness/20;
+                CurrentTemp = Mathf.Lerp(SeasonCycle[CurrentSeason].TempMultiplier,SeasonCycle[NextSeason].TempMultiplier,t/FadeTime) + Fire._hp.GetCurrentHP() / 20;
                 CurrentWind = Mathf.Lerp(SeasonCycle[CurrentSeason].WindMulitiplier, SeasonCycle[NextSeason].WindMulitiplier, t / FadeTime);
-                TempText.text = "Температура: " + Mathf.CeilToInt(CurrentTemp).ToString() + "°C";
+                TempText.text = "Температура воздуха: " + Mathf.CeilToInt(CurrentTemp).ToString() + "°C";
                 WindText.text = "Скорость ветра: " + Mathf.CeilToInt(CurrentWind).ToString() + "м/c";
                 Sun.color = Color.Lerp(SeasonCycle[CurrentSeason].Colors[0], SeasonCycle[NextSeason].Colors[0], t / FadeTime);
                 Cam.backgroundColor= Color.Lerp(SeasonCycle[CurrentSeason].Colors[0], SeasonCycle[NextSeason].Colors[0], t / FadeTime);

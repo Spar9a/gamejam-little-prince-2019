@@ -20,11 +20,16 @@ public class HealthBar : MonoBehaviour {
     private float _lastHealTime = 0;
     [SerializeField] private float _delayBetweenHeal = 5;
     [SerializeField] private float _healInCooldown = 1;
-    
+
+    public Transform Player;
+
     private void Awake() {
         _meshRenderer = GetComponent<MeshRenderer>();
         _matBlock = new MaterialPropertyBlock();
         // get the damageable parent we're attached to
+
+        // Player = GameObject.FindGameObjectWithTag("Player").transform;
+        Player = Camera.main.transform;
     }
 
     private void Start() {
@@ -47,6 +52,9 @@ public class HealthBar : MonoBehaviour {
                 _inCooldown = false;
             GetHealth(_healInCooldown);
         }
+
+        //Look at player
+        transform.LookAt(Player);
     }
 
     private void UpdateParams() {

@@ -7,7 +7,7 @@ public class Fireplace : MonoBehaviour
 {
     public float LifeTime;
 
-    [SerializeField] private HealthBar _hp;
+    [SerializeField] public HealthBar _hp;
     [SerializeField] bool InZone;
     public GameObject UsePanel;
     public Text UseText;
