@@ -31,6 +31,7 @@ public class SeasonsManager : MonoBehaviour
     public int CurrentSeason;
     public float FadeTime;
     public bool SummerPassed;
+    public bool Transition;
 
     public Color[] CurrentColors;
     public Material[] Materials;
@@ -41,13 +42,14 @@ public class SeasonsManager : MonoBehaviour
     public Text WindText;
     public GameObject EndPanel;
 
-    Color lerpedColor;
+    public Fireplace Fire;
 
     void Start()
     {
         SummerPassed = false;
+        Transition = false;
 
-        CurrentTemp = SeasonCycle[0].TempMultiplier;
+        CurrentTemp = SeasonCycle[0].TempMultiplier+Fire.Hotness/20;
         CurrentWind = SeasonCycle[0].WindMulitiplier;
 
         TempText.text = "Температура: " + Mathf.CeilToInt(CurrentTemp).ToString() + "°C";
@@ -64,17 +66,24 @@ public class SeasonsManager : MonoBehaviour
 
         StartCoroutine(Cycle());
     }
-    
 
+    private void Update()
+    {
+        if (!Transition)
+        {
+            //TempText.text= "Температура: "
+        }
+    }
     IEnumerator Cycle()
     {
         
         while (CurrentSeason < 4)
         {
             yield return new WaitForSeconds(SeasonTime);
+            Transition = true;
             for (float t = 0.01f; t < FadeTime; t += 0.1f)
                 {
-                CurrentTemp = Mathf.Lerp(SeasonCycle[CurrentSeason].TempMultiplier,SeasonCycle[NextSeason].TempMultiplier,t/FadeTime);
+                CurrentTemp = Mathf.Lerp(SeasonCycle[CurrentSeason].TempMultiplier,SeasonCycle[NextSeason].TempMultiplier,t/FadeTime) + Fire.Hotness/20;
                 CurrentWind = Mathf.Lerp(SeasonCycle[CurrentSeason].WindMulitiplier, SeasonCycle[NextSeason].WindMulitiplier, t / FadeTime);
                 TempText.text = "Температура: " + Mathf.CeilToInt(CurrentTemp).ToString() + "°C";
                 WindText.text = "Скорость ветра: " + Mathf.CeilToInt(CurrentWind).ToString() + "м/c";
@@ -88,6 +97,7 @@ public class SeasonsManager : MonoBehaviour
 
                 yield return null;
                 }
+            Transition = false;
             if (CurrentSeason == 0)
             {
                 Debug.Log("Summer Passed");
