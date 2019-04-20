@@ -5,16 +5,15 @@ using UnityEngine.UI;
 
 public class Fireplace : MonoBehaviour
 {
-    public float StartHotness;
-    public float Hotness;
     public float LifeTime;
-    public Slider StatusBar;
 
-    public bool InZone;
+    [SerializeField] private HealthBar _hp;
+    [SerializeField] bool InZone;
     public GameObject UsePanel;
     public Text UseText;
     public string Line;
 
+    
     public Inventory Inventory_;
 
     void Start()
@@ -25,7 +24,7 @@ public class Fireplace : MonoBehaviour
     }
     private void OnTriggerStay(Collider col)
     {
-        if (col.tag == "Player"&&Inventory_.CurrentItem==Item.Wood)
+        if (col.tag == "Player" && Inventory_.CurrentItem==Item.Wood)
         {
             InZone = true;
             UseText.text = Line;
@@ -51,7 +50,7 @@ public class Fireplace : MonoBehaviour
     {
         Debug.Log("added");
         StopAllCoroutines();
-        StartHotness = Hotness + 20;
+        _hp.GetHealth(20);
         StartCoroutine(Burn());
         //if (Hotness > 100) Hotness = 100;
 
@@ -61,8 +60,7 @@ public class Fireplace : MonoBehaviour
 
         for (float t = 0.01f; t < LifeTime; t += 0.1f)
         {
-            Hotness = Mathf.Lerp(StartHotness,0,t/LifeTime);
-            StatusBar.value = Hotness;
+            _hp.SetHealth(Mathf.Lerp(_hp.GetMaxHP(),0,t/LifeTime));
             yield return null;
         }
     }
