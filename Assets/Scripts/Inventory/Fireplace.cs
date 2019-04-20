@@ -8,6 +8,7 @@ public class Fireplace : MonoBehaviour
     public float StartHotness;
     public float Hotness;
     public float LifeTime;
+    public float FadeTime;
     public Slider StatusBar;
 
     public bool InZone;
@@ -16,11 +17,15 @@ public class Fireplace : MonoBehaviour
     public string Line;
 
     public Inventory Inventory_;
+    public SeasonsManager Manager;
+    public Material WoodMaterial;
 
     void Start()
     {
         InZone = false;
         UsePanel.SetActive(false);
+        WoodMaterial.SetColor("_Color",Manager.CurrentColors[5]);
+
         StartCoroutine(Burn());
     }
     private void OnTriggerStay(Collider col)
@@ -58,12 +63,17 @@ public class Fireplace : MonoBehaviour
     }
     IEnumerator Burn()
     {
-
+        
         for (float t = 0.01f; t < LifeTime; t += 0.1f)
         {
             Hotness = Mathf.Lerp(StartHotness,0,t/LifeTime);
             StatusBar.value = Hotness;
             yield return null;
         }
-    }
+        for (float t = 0.01f; t < FadeTime; t += 0.1f)
+        {
+            WoodMaterial.SetColor("_Color", Color.Lerp(Manager.CurrentColors[5], Manager.CurrentColors[6], t / FadeTime));
+        }
+
+        }
 }
