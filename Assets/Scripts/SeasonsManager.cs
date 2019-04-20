@@ -18,6 +18,8 @@ public class Season
     public float TempMultiplier;
     public float WindMulitiplier;
     public Color[] Colors;
+    public Material ParticleMaterial;
+    public GameObject Particles;
 }
 
 public class SeasonsManager : MonoBehaviour
@@ -34,6 +36,9 @@ public class SeasonsManager : MonoBehaviour
     public bool Transition;
 
     public Color[] CurrentColors;
+    public Color FadeOutColor;
+    public Color FadeInColor;
+
     public Material[] Materials;
     public Light Sun;
     public Camera Cam;
@@ -80,7 +85,9 @@ public class SeasonsManager : MonoBehaviour
         while (CurrentSeason < 4)
         {
             yield return new WaitForSeconds(SeasonTime);
+
             Transition = true;
+            SeasonCycle[NextSeason].Particles.SetActive(true);
             for (float t = 0.01f; t < FadeTime; t += 0.1f)
                 {
                 CurrentTemp = Mathf.Lerp(SeasonCycle[CurrentSeason].TempMultiplier,SeasonCycle[NextSeason].TempMultiplier,t/FadeTime) + Fire.Hotness/20;
@@ -89,14 +96,25 @@ public class SeasonsManager : MonoBehaviour
                 WindText.text = "Скорость ветра: " + Mathf.CeilToInt(CurrentWind).ToString() + "м/c";
                 Sun.color = Color.Lerp(SeasonCycle[CurrentSeason].Colors[0], SeasonCycle[NextSeason].Colors[0], t / FadeTime);
                 Cam.backgroundColor= Color.Lerp(SeasonCycle[CurrentSeason].Colors[0], SeasonCycle[NextSeason].Colors[0], t / FadeTime);
+                FadeOutColor.a = Mathf.Lerp(0, 1, t / FadeTime);
+                FadeInColor.a = Mathf.Lerp(1, 0, t / FadeTime);
+
+                SeasonCycle[CurrentSeason].ParticleMaterial.SetColor("MainColor", FadeOutColor);
+                SeasonCycle[CurrentSeason].ParticleMaterial.SetColor("MainColor", FadeInColor);
 
                 for (int i = 0; i < 6; i++)
                 {
                     Materials[i].SetColor("_Color", Color.Lerp(SeasonCycle[CurrentSeason].Colors[i], SeasonCycle[NextSeason].Colors[i], t / FadeTime));
                 }
 
+                
                 yield return null;
                 }
+
+            SeasonCycle[CurrentSeason].Particles.SetActive(false);
+            
+
+                
             Transition = false;
             if (CurrentSeason == 0)
             {

@@ -41,7 +41,7 @@ public class Inventory : MonoBehaviour
     }
     private void OnTriggerExit(Collider col)
     {
-        if (col.tag == CurrentItem.ToString())
+        if (col.tag =="Wood")
         {
             UsePanel.SetActive(false);
         }
