@@ -19,21 +19,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.A))
-        {
-            Earth.Rotate(new Vector3(0,0, (speed * -1)));
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            Earth.Rotate(new Vector3(0,0, speed));
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            Earth.Rotate(new Vector3((speed * -1),0, 0));
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            Earth.Rotate(new Vector3(speed,0, speed));
-        }
+        //Earth.Ro = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
+        //h = Input.GetAxis("Vertical") * Time.deltaTime * speed;
     }
 }
