@@ -17,12 +17,11 @@ public class PlayerController : MonoBehaviour
     Vector3 moveAmount;
     Vector3 smoothMoveVelocity;
     float verticalLookRotation;
-    Transform cameraTransform;
+    public Transform cameraTransform;
     Rigidbody rigidbody;
 	
 	
     void Awake() {
-        cameraTransform = Camera.main.transform;
         rigidbody = GetComponent<Rigidbody> ();
     }
 	
@@ -32,14 +31,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensitivityX);
-            verticalLookRotation += Input.GetAxis("Mouse Y") * mouseSensitivityY;
-            verticalLookRotation = Mathf.Clamp(verticalLookRotation,-60,60);
-            cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
+            //verticalLookRotation += Input.GetAxis("Mouse Y") * mouseSensitivityY;
+            //verticalLookRotation = Mathf.Clamp(verticalLookRotation,-60,60);
+            //cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
         }
 		
         // Calculate movement:
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputY = Input.GetAxisRaw("Vertical");
+        float inputX = Input.GetAxisRaw("Horizontal") * -1;
+        float inputY = Input.GetAxisRaw("Vertical") * -1;
 		
         Vector3 moveDir = new Vector3(inputX,0, inputY).normalized;
         Vector3 targetMoveAmount = moveDir * walkSpeed;
