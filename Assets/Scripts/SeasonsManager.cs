@@ -30,6 +30,7 @@ public class SeasonsManager : MonoBehaviour
     public int NextSeason;
     public int CurrentSeason;
     public float FadeTime;
+    public bool SummerPassed;
 
     public Color[] CurrentColors;
     public Material[] Materials;
@@ -38,11 +39,20 @@ public class SeasonsManager : MonoBehaviour
 
     public Text TempText;
     public Text WindText;
+    public GameObject EndPanel;
 
     Color lerpedColor;
 
     void Start()
     {
+        SummerPassed = false;
+
+        CurrentTemp = SeasonCycle[0].TempMultiplier;
+        CurrentWind = SeasonCycle[0].WindMulitiplier;
+
+        TempText.text = "Температура: " + Mathf.CeilToInt(CurrentTemp).ToString() + "°C";
+        WindText.text = "Скорость ветра: " + Mathf.CeilToInt(CurrentWind).ToString() + "м/c";
+
         for (int i = 0; i < 6; i++)
         {
             CurrentColors[i] = SeasonCycle[0].Colors[i];
@@ -50,6 +60,8 @@ public class SeasonsManager : MonoBehaviour
         }
         Sun.color = SeasonCycle[0].Colors[0];
         Cam.backgroundColor = SeasonCycle[0].Colors[0];
+
+
         StartCoroutine(Cycle());
     }
     
@@ -76,12 +88,23 @@ public class SeasonsManager : MonoBehaviour
 
                 yield return null;
                 }
-            
+            if (CurrentSeason == 0)
+            {
+                Debug.Log("Summer Passed");
+                if (!SummerPassed) SummerPassed = true;
+                else End();
+            }
+
             if (CurrentSeason < 3) CurrentSeason++;
             else CurrentSeason = 0;
             if (CurrentSeason < 3) NextSeason = CurrentSeason + 1;
             else NextSeason = 0;
         }
+        End();
+    }
+    void End()
+    {
+        EndPanel.SetActive(true);
     }
 
 
