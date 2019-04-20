@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class StarShaking : MonoBehaviour
 {
@@ -10,14 +13,12 @@ public class StarShaking : MonoBehaviour
     void Start()
     {
         _this = this.transform;
+        Shake();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Shake()
     {
-        
-        _this.position = Vector3.Lerp(_this.position, Vector3.right * 1, Time.deltaTime);
+        _this.DOPunchScale(Vector3.one,Random.Range(1f, 10f), 1, 0.25f).OnComplete(Shake);
     }
-
-
+    
 }
