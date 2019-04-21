@@ -379,11 +379,11 @@ RectTransform:
   m_Father: {fileID: 1181644310}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 348, y: 142}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -6, y: -5.7}
   m_SizeDelta: {x: 100, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &222473237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,7 +439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29411766, g: 0.84313726, b: 0.8980392, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -507,6 +507,10 @@ MonoBehaviour:
   _hp: {fileID: 0}
   RoseTempText: {fileID: 0}
   RoseWindText: {fileID: 0}
+  Source: {fileID: 0}
+  HitSound: {fileID: 0}
+  Anim: {fileID: 0}
+  LoseScreen: {fileID: 0}
 --- !u!23 &275639396 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 3458111352437994549, guid: 73edd3f50c09a0e4f9b4b7a210d29506,
@@ -851,6 +855,7 @@ MonoBehaviour:
   LeavesMaterial: {fileID: 2100000, guid: 831a9e7efb3489c4ea5d6d33f0ba4fd6, type: 2}
   Sun: {fileID: 170076734}
   Cam: {fileID: 1256007162}
+  WindSource: {fileID: 0}
   TempText: {fileID: 0}
   WindText: {fileID: 0}
   EndPanel: {fileID: 1291511980}
@@ -1577,7 +1582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29169634, g: 0.84298724, b: 0.8962264, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7164,6 +7169,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -2.8400002
       objectReference: {fileID: 0}
+    - target: {fileID: 7787534576588874145, guid: 73edd3f50c09a0e4f9b4b7a210d29506,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1729102569, guid: 73edd3f50c09a0e4f9b4b7a210d29506, type: 3}
       propertyPath: WoodSounds.Array.size
       value: 5
@@ -7282,11 +7292,6 @@ PrefabInstance:
       value: FireParticles
       objectReference: {fileID: 0}
     - target: {fileID: 2008710772065750442, guid: 73edd3f50c09a0e4f9b4b7a210d29506,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 7787534576588874145, guid: 73edd3f50c09a0e4f9b4b7a210d29506,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -7595,6 +7600,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   cameraTransform: {fileID: 0}
+  _delayBetweenSounds: 0.5
 --- !u!54 &1083826870
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8241,7 +8247,11 @@ PrefabInstance:
       propertyPath: m_LightProbeUsage
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4458750057157015327, guid: 29775227fba58c54d96370a3b00fd33b, type: 3}
+    - {fileID: 1512537141910781354, guid: 29775227fba58c54d96370a3b00fd33b, type: 3}
+    - {fileID: 1775613423896595140, guid: 29775227fba58c54d96370a3b00fd33b, type: 3}
+    - {fileID: 3546638182878308161, guid: 29775227fba58c54d96370a3b00fd33b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 29775227fba58c54d96370a3b00fd33b, type: 3}
 --- !u!1 &1282371645
 GameObject:
