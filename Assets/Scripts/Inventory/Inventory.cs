@@ -15,6 +15,8 @@ public class Inventory : MonoBehaviour
     public Text UseText;
     public Item CurrentItem;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
