@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 6;
     public float jumpForce = 220;
     public LayerMask groundedMask;
-	
     // System vars
     bool grounded;
     Vector3 moveAmount;
@@ -19,8 +18,10 @@ public class PlayerController : MonoBehaviour
     float verticalLookRotation;
     public Transform cameraTransform;
     Rigidbody rigidbody;
-	
-	
+    private float _timeFromPrevSound;
+
+    [SerializeField] private float _delayBetweenSounds = 0.5f;
+    
     void Awake() {
         rigidbody = GetComponent<Rigidbody> ();
     }
@@ -35,7 +36,14 @@ public class PlayerController : MonoBehaviour
             //verticalLookRotation = Mathf.Clamp(verticalLookRotation,-60,60);
             //cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
         }
-		
+
+        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) ||
+             Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.W))
+            && (Time.time - _timeFromPrevSound) > _delayBetweenSounds)
+        {
+            _timeFromPrevSound = Time.time;
+        }
+        
         // Calculate movement:
         float inputX = Input.GetAxisRaw("Horizontal") * -1;
         float inputY = Input.GetAxisRaw("Vertical") * -1;

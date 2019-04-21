@@ -796,7 +796,7 @@ MonoBehaviour:
   Manager: {fileID: 311981448}
   Fire: {fileID: 1413775695}
   Protect: {fileID: 1687445960}
-  _hp: {fileID: 0}
+  _hp: {fileID: 1817156939}
   RoseTempText: {fileID: 1050077642}
   RoseWindText: {fileID: 255775575}
 --- !u!23 &275639396 stripped
