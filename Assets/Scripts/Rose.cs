@@ -38,7 +38,7 @@ public class Rose : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RoseTemp = Manager.CurrentTemp + Fire._hp.GetCurrentHP() / 20;
+        RoseTemp = Manager.CurrentTemp + Fire._hp.GetCurrentHP() / 10;
         if (Protect.Activated)
         {
             RoseWind = Manager.CurrentWind - Protect.WindProtect;
@@ -66,7 +66,7 @@ public class Rose : MonoBehaviour
                 CurrentHealth = CurrentHealth - TempDamage;
             }
                 
-            if (Manager.CurrentWind > 10)
+            if (RoseWind > 10)
             {
                 Source.PlayOneShot(HitSound);
                 Anim.SetBool("Hit", true);
@@ -79,6 +79,10 @@ public class Rose : MonoBehaviour
             if (CurrentHealth <= 0)
             {
                 LoseScreen.SetActive(true);
+                Destroy(Manager.gameObject);
+                Destroy(Fire.gameObject);
+                Destroy(Protect.gameObject);
+                Destroy(gameObject);
             }
         }
         //End;
