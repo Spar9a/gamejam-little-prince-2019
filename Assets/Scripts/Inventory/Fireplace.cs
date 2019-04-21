@@ -7,7 +7,7 @@ public class Fireplace : MonoBehaviour
 {
     public float LifeTime;
 
-    [SerializeField] public HealthBar _hp;
+    [SerializeField] public FireplaceHealth _hp;
     [SerializeField] bool InZone;
     public GameObject UsePanel;
     public Text UseText;
@@ -75,7 +75,7 @@ public class Fireplace : MonoBehaviour
             _hp.SetHealth(Mathf.Lerp(_hp.GetMaxHP(),0,t/LifeTime));
             yield return null;
         }
-        if (_hp.GetCurrentHP() <= 0)
+        if (_hp.GetCurrentHP() <= 1)
         {
             End();
         }
