@@ -12,11 +12,16 @@ public class Rose : MonoBehaviour
     public float WindDamage;
 
     public float RoseTemp;
+    public float RoseWind;
 
     public SeasonsManager Manager;
     public Fireplace Fire;
+    public Protector Protect;
 
-    public Slider HealthBar;
+    public HealthBar _hp;
+
+    public Text RoseTempText;
+    public Text RoseWindText;
 
     // Start is called before the first frame update
     void Start()
@@ -27,13 +32,18 @@ public class Rose : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        RoseTemp = Manager.CurrentTemp + Fire.GetCurrentTemp();
-        
-        
-        
+        RoseTemp = Manager.CurrentTemp + Fire._hp.GetCurrentHP() / 20;
+        if (Protect.Activated)
+        {
+            RoseWind = Manager.CurrentWind - Protect.WindProtect;
+            if (RoseWind < 0) RoseWind = 0;
+        }
+        else RoseWind = Manager.CurrentWind;
+        RoseTempText.text = "Температура Розы: " + Mathf.CeilToInt(RoseTemp).ToString() + "°C";
+        RoseWindText.text = "Влияние ветра на Розу: " + Mathf.CeilToInt(RoseWind).ToString() + "м/c";
+
+
     }
-    
     IEnumerator Live()
     {
         while (CurrentHealth>0)
@@ -46,7 +56,7 @@ public class Rose : MonoBehaviour
                 CurrentHealth = CurrentHealth-TempDamage;
             if (Manager.CurrentWind > 10)
                 CurrentHealth =CurrentHealth - WindDamage;
-            HealthBar.value = CurrentHealth;
+            _hp.SetHealth(CurrentHealth);
         }
     }
 }
