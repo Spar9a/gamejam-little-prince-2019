@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody rigidbody;
     private float _timeFromPrevSound;
 
+    public AudioSource Source;
+    public SeasonsManager Manager;
+
     [SerializeField] private float _delayBetweenSounds = 0.5f;
     
     void Awake() {
@@ -29,18 +32,19 @@ public class PlayerController : MonoBehaviour
     void Update() {
 		
         // Look rotation:
-        if (Input.GetMouseButton(0))
-        {
+       // if (Input.GetMouseButton(0))
+        //{
             transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensitivityX);
             //verticalLookRotation += Input.GetAxis("Mouse Y") * mouseSensitivityY;
             //verticalLookRotation = Mathf.Clamp(verticalLookRotation,-60,60);
             //cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
-        }
+       // }
 
-        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) ||
-             Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.W))
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) ||
+             Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W))
             && (Time.time - _timeFromPrevSound) > _delayBetweenSounds)
         {
+            Source.PlayOneShot( Manager.SeasonCycle[Manager.CurrentSeason].Footsteps[Random.Range(0,2)] );
             _timeFromPrevSound = Time.time;
         }
         

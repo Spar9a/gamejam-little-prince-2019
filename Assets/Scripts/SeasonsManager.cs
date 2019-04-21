@@ -24,6 +24,8 @@ public class Season
     public Color[] Colors;
     public Material ParticleMaterial;
     public GameObject Particles;
+
+    public AudioClip[] Footsteps;
 }
 
 public class SeasonsManager : MonoBehaviour

@@ -18,7 +18,7 @@ public class Rose : MonoBehaviour
     public Fireplace Fire;
     public Protector Protect;
 
-    public RoseHealth _hp;
+    public HealthBar _hp;
 
     public Text RoseTempText;
     public Text RoseWindText;
