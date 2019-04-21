@@ -27,9 +27,13 @@ public class Rose : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RoseTemp = Manager.CurrentTemp + Fire._hp.GetCurrentHP() / 20;
-
+        
+        RoseTemp = Manager.CurrentTemp + Fire.GetCurrentTemp();
+        
+        
+        
     }
+    
     IEnumerator Live()
     {
         while (CurrentHealth>0)

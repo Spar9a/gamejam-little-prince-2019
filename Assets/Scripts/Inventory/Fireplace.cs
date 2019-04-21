@@ -12,7 +12,7 @@ public class Fireplace : MonoBehaviour
     public GameObject UsePanel;
     public Text UseText;
     public string Line;
-
+    public float Temp = 20f;
     
     public Inventory Inventory_;
 
@@ -55,6 +55,13 @@ public class Fireplace : MonoBehaviour
         //if (Hotness > 100) Hotness = 100;
 
     }
+
+    public float GetCurrentTemp()
+    {
+        if (_hp.GetCurrentHP() <= 0) return Temp;
+        return 0;
+    }            
+    
     IEnumerator Burn()
     {
 

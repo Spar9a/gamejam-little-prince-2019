@@ -10,7 +10,7 @@ public class Protector : MonoBehaviour
     public float WindProtect;
 
     public string Line;
-    public Text
+    public Text text;
 
     public AudioClip UseSound;
     public AudioClip UnUseSound;

@@ -8,7 +8,7 @@
         LOD 100
 
         Pass {
-            ZTest Off
+            ZTest On
 
             CGPROGRAM
             #pragma vertex vert
