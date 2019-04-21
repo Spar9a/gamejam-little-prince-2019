@@ -18,7 +18,7 @@ public class Rose : MonoBehaviour
     public Fireplace Fire;
     public Protector Protect;
 
-    public HealthBar _hp;
+    public RoseHealth _hp;
 
     public Text RoseTempText;
     public Text RoseWindText;
@@ -54,8 +54,6 @@ public class Rose : MonoBehaviour
     {
         while (CurrentHealth>0)
         {
-            Debug.Log("in");
-            
             //yield return new WaitUntil(() => (RoseTemp < -10)||Manager.CurrentWind>10);
             yield return new WaitForSeconds(5);
             

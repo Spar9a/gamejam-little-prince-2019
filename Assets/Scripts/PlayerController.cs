@@ -31,12 +31,15 @@ public class PlayerController : MonoBehaviour
        /// if (Input.GetMouseButton(0))
         //{
             transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensitivityX);
-            //verticalLookRotation += Input.GetAxis("Mouse Y") * mouseSensitivityY;
-            //verticalLookRotation = Mathf.Clamp(verticalLookRotation,-60,60);
-            //cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
+        //verticalLookRotation += Input.GetAxis("Mouse Y") * mouseSensitivityY;
+        //verticalLookRotation = Mathf.Clamp(verticalLookRotation,-60,60);
+        //cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
         //}
-		
+
         // Calculate movement:
+
+       
+
         float inputX = Input.GetAxisRaw("Horizontal") * -1;
         float inputY = Input.GetAxisRaw("Vertical") * -1;
 		
