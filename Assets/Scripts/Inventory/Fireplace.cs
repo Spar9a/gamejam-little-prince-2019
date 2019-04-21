@@ -22,6 +22,8 @@ public class Fireplace : MonoBehaviour
     public AudioClip[] WoodSounds;
     public AudioClip DeathSound;
 
+    public Material WoodMaterials;
+    public Material WoodUsedMaterials;
 
     void Start()
     {
@@ -75,7 +77,7 @@ public class Fireplace : MonoBehaviour
             _hp.SetHealth(Mathf.Lerp(_hp.GetMaxHP(),0,t/LifeTime));
             yield return null;
         }
-        if (_hp.GetCurrentHP() <= 0)
+        if (Mathf.CeilToInt(_hp.GetCurrentHP()) <= 0)
         {
             End();
         }
