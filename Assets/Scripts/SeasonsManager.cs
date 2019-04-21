@@ -47,6 +47,7 @@ public class SeasonsManager : MonoBehaviour
     public Material LeavesMaterial;
     public Light Sun;
     public Camera Cam;
+    public AudioSource WindSource;
 
     public Text TempText;
     public Text WindText;
@@ -98,7 +99,8 @@ public class SeasonsManager : MonoBehaviour
             float force = SeasonCycle[NextSeason].ShaderForce;
             LeavesMaterial.SetVector("_wind_dir", new Vector4(force, force, force, 0));
             SeasonCycle[CurrentSeason].Particles.SetActive(false);
-            
+            WindSource.volume = SeasonCycle[NextSeason].WindMulitiplier / 10;
+
             for (float t = 0.01f; t < FadeTime; t += 0.1f)
                 {
                 CurrentTemp = Mathf.Lerp(SeasonCycle[CurrentSeason].TempMultiplier,SeasonCycle[NextSeason].TempMultiplier,t/FadeTime) + Fire._hp.GetCurrentHP() / 20;

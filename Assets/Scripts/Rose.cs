@@ -23,6 +23,12 @@ public class Rose : MonoBehaviour
     public Text RoseTempText;
     public Text RoseWindText;
 
+    public AudioSource Source;
+    public AudioClip HitSound;
+    public Animator Anim;
+
+    public GameObject LoseScreen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,11 +58,31 @@ public class Rose : MonoBehaviour
             
             //yield return new WaitUntil(() => (RoseTemp < -10)||Manager.CurrentWind>10);
             yield return new WaitForSeconds(5);
+            
             if (RoseTemp < -10)
-                CurrentHealth = CurrentHealth-TempDamage;
+            {
+                Source.PlayOneShot(HitSound);
+                Anim.SetBool("Hit", true);
+                yield return new WaitForSeconds(0.01f);
+                Anim.SetBool("Hit", false);
+                CurrentHealth = CurrentHealth - TempDamage;
+            }
+                
             if (Manager.CurrentWind > 10)
-                CurrentHealth =CurrentHealth - WindDamage;
+            {
+                Source.PlayOneShot(HitSound);
+                Anim.SetBool("Hit", true);
+                yield return new WaitForSeconds(0.01f);
+                Anim.SetBool("Hit", false);
+                CurrentHealth = CurrentHealth - WindDamage;
+            }
+            
             _hp.SetHealth(CurrentHealth);
+            if (CurrentHealth <= 0)
+            {
+                LoseScreen.SetActive(true);
+            }
         }
+        //End;
     }
 }
